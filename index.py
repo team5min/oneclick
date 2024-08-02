@@ -19,7 +19,7 @@ cred = credentials.Certificate("./admin.json")
 firebase_admin.initialize_app(
     cred,
     {
-        "databaseURL": os.environ["DATABASE"],
+        "databaseURL": os.environ["database"],
         "databaseAuthVariableOverride": {"uid": "my-service-worker"},
     },
 )
