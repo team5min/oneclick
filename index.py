@@ -8,7 +8,7 @@ from firebase_admin import db
 
 load_dotenv()
 
-project_id = "1051954768"
+project_id = "1052030463"
 
 # ログインや接続
 session = scratch3.Session(os.environ["session"], username=os.environ["user"])
