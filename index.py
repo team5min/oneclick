@@ -1,20 +1,43 @@
 # ライブラリ
 import scratchattach as scratch3
 import os
+from dotenv import load_dotenv
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
 
-project_id = "プロジェクトのID"
+load_dotenv()
+
+project_id = "1051954768"
 
 # ログインや接続
-session = scratch3.login(os.environ["user"], os.environ["pass"])
+session = scratch3.Session(os.environ["session"], username=os.environ["user"])
 conn = session.connect_cloud(project_id)
-events = scratch3.CloudEvents(project_id)
+client = scratch3.CloudRequests(conn)
+
+cred = credentials.Certificate("./admin.json")
+firebase_admin.initialize_app(
+    cred,
+    {
+        "databaseURL": os.environ["DATABASE"],
+        "databaseAuthVariableOverride": {"uid": "my-service-worker"},
+    },
+)
+
+root = db.reference("/users")
 
 
-# クラウド変数が変更されたときの処理
-@events.event
-def on_set(event):
-    pass
+@client.request
+def used(user):
+    ref = root.child(user)
+    ref.set(False)
+    print("inited")
+    return "sure"
 
 
-# 処理開始
-events.start()
+@client.event
+def on_ready():
+    print("Ready!")
+
+
+client.run()
