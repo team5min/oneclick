@@ -30,9 +30,19 @@ root = db.reference("/users")
 @client.request
 def used(user):
     ref = root.child(user)
-    ref.set(False)
-    print("inited")
-    return "sure"
+    if ref.get() == None:
+        ref.set(False)
+        print(f"Create new user: {user}")
+
+    return "1" if ref.get() else "0"
+
+
+@client.request
+def using(user):
+    ref = root.child(user)
+    ref.set(True)
+
+    return "ok"
 
 
 @client.event

@@ -36,6 +36,4 @@ jobs:
 
       - name: Run🏃
         run: |
-          git config user.name "actions-user"
-          git config user.email "65916846+actions-user@users.noreply.github.com"
           python index.py
