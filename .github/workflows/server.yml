@@ -5,10 +5,10 @@ on:
     branches: [main]
   # 本番環境になったら外す
   schedule:
-    - cron: "0 18 * * *"
-    - cron: "0 0 * * *"
-    - cron: "0 6 * * *"
-    - cron: "0 12 * * *"
+    #- cron: "0 18 * * *"
+    #- cron: "0 0 * * *"
+    #- cron: "0 6 * * *"
+    #- cron: "0 12 * * *"
 
 jobs:
   build:
