@@ -24,15 +24,22 @@ firebase_admin.initialize_app(
     },
 )
 
-root = db.reference("/users")
+root = db.reference("/users_new")
+old_root = db.reference("/users")
 
 
 @client.request
 def used(user):
     ref = root.child(user)
+    older = False
     if ref.get() == None:
         ref.set(False)
         print(f"Create new user: {user}")
+        if old_root.child(user).get() != None:
+            older = True
+
+    if older:
+        return "2"
 
     return "1" if ref.get() else "0"
 
